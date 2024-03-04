@@ -29,7 +29,10 @@ pipeline {
         }
         stage('Deploy Image') {
             steps {
-                
+                script{
+                    // Prompt for input approval
+                    input("Deploy to production?")
+                }                
                 withCredentials([usernamePassword(credentialsId: 'd6c01c79-d2f2-4016-a697-7ccf2202ffa4', passwordVariable: 'pass', usernameVariable: 'user')]) {
                     bat """docker pull krasen84/student:1.0.0 
                         docker run -d -p 8081:8081 krasen84/student:1.0.0"""
